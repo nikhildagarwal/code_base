@@ -29,28 +29,28 @@ import java.util.Iterator;
  * @author Nikhil Daehee Agarwal
  */
 
-public class nList<T> implements Iterable<T> {
+public class List<T> implements Iterable<T> {
 
     private int capacity;
     private T[] list;
     private int size;
 
     /**
-     * Creates nList Object with default capacity 10
+     * Creates List Object with default capacity 10
      */
-    public nList() {
+    public List() {
         this.capacity = 10;
         this.size = 0;
         this.list = (T[]) new Object[capacity];
     }
 
     /**
-     * Creates an nList Object from a specified generic array
+     * Creates an List Object from a specified generic array
      * Default capacity is set to 10;
      * 
      * @param tArray specified generic array
      */
-    public nList(T[] tArray) {
+    public List(T[] tArray) {
         this.capacity = 10;
         this.size = tArray.length;
         T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
@@ -61,13 +61,13 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Creates an nList Object from a specified generic array, and a specified init
+     * Creates an List Object from a specified generic array, and a specified init
      * capacity
      * 
      * @param tArray   specified generic array
      * @param capacity int capacity
      */
-    public nList(T[] tArray, int capacity) {
+    public List(T[] tArray, int capacity) {
         this.capacity = capacity;
         this.size = tArray.length;
         T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
@@ -78,11 +78,11 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Creates nList Object with specified capacity
+     * Creates List Object with specified capacity
      * 
      * @param capacity user specified capacity (int)
      */
-    public nList(int capacity) {
+    public List(int capacity) {
         this.capacity = capacity;
         this.size = 0;
         this.list = (T[]) new Object[capacity];
@@ -175,14 +175,14 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * return nList object of all the index values where a specified value is found.
+     * return List object of all the index values where a specified value is found.
      * 
      * @param value generic value we want to find.
-     * @return nList object holding integer values of indexes where element was
+     * @return List object holding integer values of indexes where element was
      *         found.
      */
-    public nList<Integer> allPositionsOf(T value) {
-        nList<Integer> pos = new nList<>();
+    public List<Integer> allPositionsOf(T value) {
+        List<Integer> pos = new List<>();
         for (int i = 0; i < size; i++) {
             if (list[i].equals(value)) {
                 pos.add(i);
@@ -192,15 +192,15 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Method to generate a sublist of the nList object
+     * Method to generate a sublist of the List object
      * 
      * @param index1 left index bound
      * @param index2 right index bound
-     * @return new nList object containing only values from index1 to index2
+     * @return new List object containing only values from index1 to index2
      */
-    public nList<T> subList(int index1, int index2) {
+    public List<T> subList(int index1, int index2) {
         if (index2 == index1) {
-            return new nList<T>();
+            return new List<T>();
         }
         if (index2 < index1) {
             throw new IndexOutOfBoundsException("Right index cannot be less than the Left index");
@@ -208,7 +208,7 @@ public class nList<T> implements Iterable<T> {
         if (index2 >= size || index2 < 0 || index1 >= size || index1 < 0) {
             throw new IndexOutOfBoundsException("Index is out of bounds");
         }
-        nList<T> newA = new nList<>();
+        List<T> newA = new List<>();
         for (int i = index1; i <= index2; i++) {
             newA.add(list[i]);
         }
@@ -216,7 +216,7 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * method to convert nList object to an array
+     * method to convert List object to an array
      * 
      * @return generic value array containing all elements from array
      */
@@ -231,7 +231,7 @@ public class nList<T> implements Iterable<T> {
     /**
      * method to relay the value of the capacity that is still available.
      * Just because there is more capacity available in the backend, does not mean
-     * the user can access indexes that are higher than the size of the nList
+     * the user can access indexes that are higher than the size of the List
      * object.
      * Only to let the developer now how much space is available before we manually
      * grow the data structure.
@@ -243,7 +243,7 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Checks to see if the nList object contains an specified generic value
+     * Checks to see if the List object contains an specified generic value
      * 
      * @param value generic value we are searching for.
      * @return true if found, false otherwise.
@@ -258,7 +258,7 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * method to get size of nList
+     * method to get size of List
      * 
      * @return int size
      */
@@ -267,9 +267,9 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * method to check if nList Object is empty
+     * method to check if List Object is empty
      * 
-     * @return true if nList size is 0, false otherwise.
+     * @return true if List size is 0, false otherwise.
      */
     public boolean isEmpty() {
         return size == 0;
@@ -298,11 +298,11 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Appends two nList objects
+     * Appends two List objects
      * 
-     * @param l nList object that we want to connect
+     * @param l List object that we want to connect
      */
-    public void append(nList<T> l) {
+    public void append(List<T> l) {
         int newsize = size + l.size();
         int div = newsize / capacity;
         T[] newA = (T[]) new Object[(div + 1) * capacity];
@@ -333,7 +333,7 @@ public class nList<T> implements Iterable<T> {
 
         /**
          * return true if index is less than size, meaning that we are still withing the
-         * "bounds" of the nList object
+         * "bounds" of the List object
          */
         @Override
         public boolean hasNext() {
@@ -355,11 +355,11 @@ public class nList<T> implements Iterable<T> {
 
     /**
      * Override method for equals in Java.Object class.
-     * checks if two nList objects are equal to each other.
+     * checks if two List objects are equal to each other.
      */
     @Override
     public boolean equals(Object obj) {
-        nList<T> myList = (nList<T>) obj;
+        List<T> myList = (List<T>) obj;
         if (myList.size() != size) {
             return false;
         }
@@ -372,7 +372,7 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
-     * Converts nList object to String.
+     * Converts List object to String.
      * Data structure is visualizable through this method.
      */
     @Override

@@ -45,6 +45,39 @@ public class nList<T> implements Iterable<T> {
     }
 
     /**
+     * Creates an nList Object from a specified generic array
+     * Default capacity is set to 10;
+     * 
+     * @param tArray specified generic array
+     */
+    public nList(T[] tArray) {
+        this.capacity = 10;
+        this.size = tArray.length;
+        T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
+        for (int i = 0; i < size; i++) {
+            newA[i] = tArray[i];
+        }
+        this.list = newA;
+    }
+
+    /**
+     * Creates an nList Object from a specified generic array, and a specified init
+     * capacity
+     * 
+     * @param tArray   specified generic array
+     * @param capacity int capacity
+     */
+    public nList(T[] tArray, int capacity) {
+        this.capacity = capacity;
+        this.size = tArray.length;
+        T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
+        for (int i = 0; i < size; i++) {
+            newA[i] = tArray[i];
+        }
+        this.list = newA;
+    }
+
+    /**
      * Creates nList Object with specified capacity
      * 
      * @param capacity user specified capacity (int)
@@ -216,8 +249,8 @@ public class nList<T> implements Iterable<T> {
      * @return true if found, false otherwise.
      */
     public boolean contains(T value) {
-        for (T curr : list) {
-            if (value.equals(curr)) {
+        for (int i = 0; i < size; i++) {
+            if (value.equals(list[i])) {
                 return true;
             }
         }
@@ -262,6 +295,25 @@ public class nList<T> implements Iterable<T> {
             list[pR] = temp;
             pR--;
         }
+    }
+
+    /**
+     * Appends two nList objects
+     * 
+     * @param l nList object that we want to connect
+     */
+    public void append(nList<T> l) {
+        int newsize = size + l.size();
+        int div = newsize / capacity;
+        T[] newA = (T[]) new Object[(div + 1) * capacity];
+        for (int i = 0; i < size; i++) {
+            newA[i] = list[i];
+        }
+        for (int i = size; i < newsize; i++) {
+            newA[i] = l.get(i - size);
+        }
+        this.size = newsize;
+        this.list = newA;
     }
 
     /**
@@ -342,8 +394,8 @@ public class nList<T> implements Iterable<T> {
     private void grow() {
         T[] newT = (T[]) new Object[size + capacity];
         int index = 0;
-        for (T curr : list) {
-            newT[index] = curr;
+        for (int i = 0; i < size; i++) {
+            newT[index] = list[i];
             index++;
         }
         this.list = newT;
@@ -397,17 +449,5 @@ public class nList<T> implements Iterable<T> {
             newA[i] = list[i];
         }
         this.list = newA;
-    }
-
-    public static void main(String[] args) {
-        nList<Boolean> l1 = new nList<>();
-        for (int i = 0; i < 14; i++) {
-            l1.add(i % 2 == 0);
-        }
-        System.out.println(l1);
-        l1.removeAll(true);
-        System.out.println(l1);
-        System.out.println(l1.size());
-        System.out.println(l1.capacityAvailable());
     }
 }

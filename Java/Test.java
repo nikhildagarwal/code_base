@@ -1,15 +1,16 @@
 package Java;
 
-import Java.data_encapsulation.Pair;
+import Java.data.*;
+import Java.structures.*;
 
 public class Test {
 
     public static void main(String[] args){
-        Pair<String,Integer> pair = new Pair<>("My Name is Nikhil",21);
-        System.out.println(pair);
-        int code = pair.hashCode();
-        System.out.println(code);
-
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 0;i<1000000000;i++){
+            stack.push(i);
+        }
+        System.out.println(stack);
     }
 
 }

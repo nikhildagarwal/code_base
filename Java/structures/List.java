@@ -28,6 +28,8 @@ import java.util.Iterator;
  */
 public class List<T> implements Iterable<T> {
 
+    private static final int INIT_CAPACITY = 100;
+
     private int capacity;
     private T[] list;
     private int size;
@@ -36,24 +38,9 @@ public class List<T> implements Iterable<T> {
      * Creates List Object with default capacity 10
      */
     public List() {
-        this.capacity = 10;
+        this.capacity = INIT_CAPACITY;
         this.size = 0;
         this.list = (T[]) new Object[capacity];
-    }
-
-    /**
-     * Creates a List Object from a specified generic array
-     * Default capacity is set to 10;
-     * @param tArray specified generic array
-     */
-    public List(T[] tArray) {
-        this.capacity = 10;
-        this.size = tArray.length;
-        T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
-        for (int i = 0; i < size; i++) {
-            newA[i] = tArray[i];
-        }
-        this.list = newA;
     }
 
     /**
@@ -80,16 +67,6 @@ public class List<T> implements Iterable<T> {
         this.capacity = capacity;
         this.size = 0;
         this.list = (T[]) new Object[capacity];
-    }
-
-    /**
-     * overload constructor to duplicate List Object;
-     * @param l List object that we want to duplicate.
-     */
-    public List(List<T> l){
-        this.capacity = l.getCapacity();
-        this.size = l.size();
-        this.list = l.getList();
     }
 
     /**

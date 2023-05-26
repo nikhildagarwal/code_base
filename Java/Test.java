@@ -1,7 +1,6 @@
 package Java;
 
-import Java.data.Pair;
-import Java.data_structures.List;
+import Java.data_encapsulation.Pair;
 
 public class Test {
 

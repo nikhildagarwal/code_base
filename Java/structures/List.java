@@ -1,4 +1,4 @@
-package Java.data_structures;
+package Java.structures;
 
 import java.util.Iterator;
 

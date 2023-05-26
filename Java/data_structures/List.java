@@ -5,30 +5,26 @@ import java.util.Iterator;
 /**
  * Java Implementation for Dynamic List.
  * Space grows and shrinks as needed.
- * 
- * Init as --> List<T> myList = new List<>(); //default capacity is 10
- * List<T> myList = new List<>(4); //set init capacity to 4
- * Methods --> void add(T value)
- * void remove(int index)
- * boolean removeAll(T value)
- * void set(int index, T value)
- * T get(int index)
- * List<Integer> allPositionsOf(T value)
- * List<T> subList(int index1, int index2)
- * T[] toArray()
- * int capacityAvailable()
- * boolean contains(T value)
- * int size()
- * boolean isEmpty()
- * void clear()
- * void reverse()
- * 
- * @Override boolean equals()
- * @Override String toString()
- * 
+ * Init as -->  List<T> myList = new List<>(); //default capacity is 10
+ *              List<T> myList = new List<>(4); //set init capacity to 4
+ * Methods -->  void add(T value)
+ *              void remove(int index)
+ *              boolean removeAll(T value)
+ *              void set(int index, T value)
+ *              T get(int index)
+ *              List<Integer> allPositionsOf(T value)
+ *              List<T> subList(int index1, int index2)
+ *              T[] toArray()
+ *              int capacityAvailable()
+ *              boolean contains(T value)
+ *              int size()
+ *              boolean isEmpty()
+ *              void clear()
+ *              void reverse()
+ *              @Override boolean equals()
+ *              @Override String toString()
  * @author Nikhil Daehee Agarwal
  */
-
 public class List<T> implements Iterable<T> {
 
     private int capacity;
@@ -45,9 +41,8 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * Creates an List Object from a specified generic array
+     * Creates a List Object from a specified generic array
      * Default capacity is set to 10;
-     * 
      * @param tArray specified generic array
      */
     public List(T[] tArray) {
@@ -61,9 +56,8 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * Creates an List Object from a specified generic array, and a specified init
+     * Creates a List Object from a specified generic array, and a specified init
      * capacity
-     * 
      * @param tArray   specified generic array
      * @param capacity int capacity
      */
@@ -79,7 +73,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Creates List Object with specified capacity
-     * 
      * @param capacity user specified capacity (int)
      */
     public List(int capacity) {
@@ -90,7 +83,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * append value to the back of the List
-     * 
      * @param value generic value we want to add
      */
     public void add(T value) {
@@ -103,7 +95,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Remove value from the list and resize the list as necessary
-     * 
      * @param index index of element we want to remove
      */
     public void remove(int index) {
@@ -122,7 +113,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Remove all instances of a value from the list.
-     * 
      * @param value generic object we want to remove.
      * @return true if the list changed (meaning we found an element that matched
      *         and removed it), false otherwise
@@ -150,7 +140,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Change value at a specific index
-     * 
      * @param index index of element that we want to change.
      * @param value generic value we want to change to.
      */
@@ -162,8 +151,7 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * get value of element at a secific index in our list
-     * 
+     * get value of element at a specific index in our list
      * @param index int index
      * @return generic value at specified index
      */
@@ -176,7 +164,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * return List object of all the index values where a specified value is found.
-     * 
      * @param value generic value we want to find.
      * @return List object holding integer values of indexes where element was
      *         found.
@@ -193,7 +180,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Method to generate a sublist of the List object
-     * 
      * @param index1 left index bound
      * @param index2 right index bound
      * @return new List object containing only values from index1 to index2
@@ -217,7 +203,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * method to convert List object to an array
-     * 
      * @return generic value array containing all elements from array
      */
     public T[] toArray() {
@@ -235,7 +220,6 @@ public class List<T> implements Iterable<T> {
      * object.
      * Only to let the developer now how much space is available before we manually
      * grow the data structure.
-     * 
      * @return int of capacity available (for developer purposes)
      */
     public int capacityAvailable() {
@@ -244,7 +228,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Checks to see if the List object contains an specified generic value
-     * 
      * @param value generic value we are searching for.
      * @return true if found, false otherwise.
      */
@@ -259,7 +242,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * method to get size of List
-     * 
      * @return int size
      */
     public int size() {
@@ -268,7 +250,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * method to check if List Object is empty
-     * 
      * @return true if List size is 0, false otherwise.
      */
     public boolean isEmpty() {
@@ -299,7 +280,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Appends two List objects
-     * 
      * @param l List object that we want to connect
      */
     public void append(List<T> l) {
@@ -419,7 +399,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * getter method for generic array
-     * 
      * @return generic array
      */
     private T[] getList() {
@@ -428,7 +407,6 @@ public class List<T> implements Iterable<T> {
 
     /**
      * getter method for capacity value
-     * 
      * @return int capacity
      */
     private int getCapacity() {

@@ -1,7 +1,6 @@
 package Java;
 
 import java.util.Iterator;
-import java.util.Arrays;
 
 /**
  * Java Implementation for Dynamic List.

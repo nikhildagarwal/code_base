@@ -23,6 +23,7 @@ import java.util.Iterator;
  *              void reverse()
  *              @Override boolean equals()
  *              @Override String toString()
+ * @param <T> Generic Object
  * @author Nikhil Daehee Agarwal
  */
 public class List<T> implements Iterable<T> {
@@ -308,6 +309,7 @@ public class List<T> implements Iterable<T> {
 
     /**
      * Implementation of Java.util iterator for advanced for loop use.
+     * @return Iterator Object for use in advanced for loops.
      */
     @Override
     public Iterator<T> iterator() {
@@ -315,8 +317,7 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * private class selfIterator containing override methods for hasNext() and
-     * next().
+     * private class selfIterator containing override methods for hasNext() and next().
      */
     private class selfIterator implements Iterator<T> {
         private int index;
@@ -324,6 +325,7 @@ public class List<T> implements Iterable<T> {
         /**
          * return true if index is less than size, meaning that we are still withing the
          * "bounds" of the List object
+         * @return true if we still have elements to loop through
          */
         @Override
         public boolean hasNext() {
@@ -333,6 +335,7 @@ public class List<T> implements Iterable<T> {
         /**
          * method to return values to the iterator.
          * return generic value only if hasNext is true.
+         * @return Generic object
          */
         @Override
         public T next() {
@@ -346,6 +349,8 @@ public class List<T> implements Iterable<T> {
     /**
      * Override method for equals in Java.Object class.
      * checks if two List objects are equal to each other.
+     * @param obj List Object we want to check
+     * @return true if equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -362,8 +367,9 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * Converts List object to String.
-     * Data structure is visualizable through this method.
+     * Coverts List Object to a printable string.
+     * Easier visualization.
+     * @return String of format --> [ val1, val2, val3, ... , valn ]
      */
     @Override
     public String toString() {

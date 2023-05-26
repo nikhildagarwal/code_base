@@ -82,6 +82,16 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
+     * overload constructor to duplicate List Object;
+     * @param l List object that we want to duplicate.
+     */
+    public List(List<T> l){
+        this.capacity = l.getCapacity();
+        this.size = l.size();
+        this.list = l.getList();
+    }
+
+    /**
      * append value to the back of the List
      * @param value generic value we want to add
      */

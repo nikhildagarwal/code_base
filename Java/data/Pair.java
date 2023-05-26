@@ -15,6 +15,11 @@ public class Pair<A, B> {
         this.value2 = b;
     }
 
+    public Pair(Pair<A,B> p){
+        this.value1 = p.getFirst();
+        this.value2 = p.getSecond();
+    }
+
     public A getFirst() {
         return value1;
     }

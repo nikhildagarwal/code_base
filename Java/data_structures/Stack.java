@@ -1,4 +1,4 @@
-package Java.structures;
+package Java.data_structures;
 
 /**
  * Java Implementation for Dynamic Stack.

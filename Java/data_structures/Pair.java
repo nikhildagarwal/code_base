@@ -1,4 +1,4 @@
-package Java.data;
+package Java.data_structures;
 
 /**
  * Implementation of C++ pair object in Java

@@ -1,7 +1,6 @@
 package Java;
 
-import Java.data.*;
-import Java.structures.*;
+import Java.data_structures.*;
 
 public class Test {
 

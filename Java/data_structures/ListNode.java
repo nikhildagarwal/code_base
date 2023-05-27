@@ -1,4 +1,4 @@
-package Java.data;
+package Java.data_structures;
 
 /**
  * Java implementation for Nodes in a Singly-LinkedList

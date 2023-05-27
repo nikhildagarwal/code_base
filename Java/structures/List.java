@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Java Implementation for Dynamic List.
  * Space grows and shrinks as needed.
- * Init as -->  List<T> myList = new List<>(); //default capacity is 10
+ * Init as -->  List<T> myList = new List<>(); //default capacity is var INIT_CAPACITY
  *              List<T> myList = new List<>(4); //set init capacity to 4
  * Methods -->  void add(T value)
  *              void remove(int index)

@@ -1,5 +1,25 @@
 package Java.structures;
 
+/**
+ * Java Implementation for Dynamic Stack.
+ * Space grows and shrinks as needed.
+ * Init as -->  Stack<T> myStack = new Stack<>(); //default capacity is var INIT_CAPACITY
+ *              Stack<T> myStack = new Stack<>(4); //set init capacity to 4
+ * Methods -->  void push(T value)
+ *              T peek()
+ *              T pop()
+ *              int capacityAvailable()
+ *              int size()
+ *              boolean isEmpty()
+ *              void clear()
+ *              void reverse()
+ *              boolean contains()
+ *              int count()
+ *              @Override boolean equals()
+ *              @Override String toString()
+ * @param <T> Generic Object
+ * @author Nikhil Daehee Agarwal
+ */
 public class Stack<T> {
 
     private static final int INIT_CAPACITY = 100;

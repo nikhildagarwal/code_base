@@ -10,6 +10,7 @@ package Java.data_structures;
  *              Node<T> next()
  *              void next(Node<T>)
  *              @Override String toString()
+ *              @Override boolean equals(Object obj)
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */

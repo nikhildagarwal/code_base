@@ -97,10 +97,17 @@ public class Pair<A, B> {
     @Override
     public boolean equals(Object obj) {
         Pair<A, B> newPair = (Pair<A, B>) obj;
-        if (newPair.getFirst().equals(value1) && newPair.getSecond().equals(value2)) {
-            return true;
-        }
-        return false;
+        return newPair.getFirst().equals(value1) && newPair.getSecond().equals(value2);
+    }
+
+    /**
+     * Overrides HashCode method
+     * @return hashCode of pair based on hashCodes of value1 and value2;
+     */
+    @Override
+    public int hashCode(){
+        long inter = value1.hashCode() + value2.hashCode() % Integer.MAX_VALUE;
+        return (int) inter;
     }
 
     /**

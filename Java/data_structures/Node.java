@@ -82,4 +82,15 @@ public class Node<T> {
         return thisOne+"-->"+nextOne;
     }
 
+    /**
+     * Checks to see if two Node Objects are the same.
+     * Nodes are considered "equal" if they point to the same address in memory
+     * @param obj Node object we want to compare
+     * @return true if nodes are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj){
+        Node<T> node = (Node<T>) obj;
+        return node == this;
+    }
 }

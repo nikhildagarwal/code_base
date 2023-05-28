@@ -105,4 +105,16 @@ public class DoubleNode<T> {
         return prevOne+"<--"+thisOne+"-->"+nextOne;
     }
 
+    /**
+     * Checks to see if two doubleNode objects are equal
+     * they are considered equal if both nodes point to the same address in memory
+     * @param obj doubleNode object we are comparing too.
+     * @return true if equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj){
+        DoubleNode<T> dn = (DoubleNode<T>) obj;
+        return dn == this;
+    }
+
 }

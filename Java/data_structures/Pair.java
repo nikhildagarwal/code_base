@@ -9,6 +9,7 @@ package Java.data_structures;
  *              void setSecond(B b);
  *              void set(A a, B b);
  *              @Override boolean equals(Object obj);
+ *              @Override int hashCode();
  *              @Override String toString();
  * @param <A> Generic Object
  * @param <B> Generic Object
@@ -106,8 +107,9 @@ public class Pair<A, B> {
      */
     @Override
     public int hashCode(){
-        long inter = value1.hashCode() + value2.hashCode() % Integer.MAX_VALUE;
-        return (int) inter;
+        long inter = (value1.hashCode() + value2.hashCode()) % Integer.MAX_VALUE;
+        long fin = inter < 0 ? inter*(-1) : inter;
+        return (int) fin;
     }
 
     /**

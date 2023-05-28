@@ -22,6 +22,7 @@ import java.util.Iterator;
  *              void clear()
  *              void reverse()
  *              @Override boolean equals()
+ *              @Override int hashCode()
  *              @Override String toString()
  * @param <T> Generic Object
  * @author Nikhil Daehee Agarwal
@@ -358,6 +359,21 @@ public class List<T> implements Iterable<T> {
             }
         }
         return ans + "]";
+    }
+
+    /**
+     * Overrides Object class hashCode method
+     * @return hashCode of list by summing all hashcode values of contents and then taking care of overflow.
+     */
+    @Override
+    public int hashCode(){
+        long sum = 0;
+        for(int i = 0;i<size;i++){
+            sum += list[i].hashCode();
+        }
+        long fin = sum % Integer.MAX_VALUE;
+        fin = fin < 0 ? fin * (-1) : fin;
+        return (int) fin;
     }
 
     /**

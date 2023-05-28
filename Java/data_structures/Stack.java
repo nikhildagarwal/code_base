@@ -16,6 +16,7 @@ package Java.data_structures;
  *              boolean contains()
  *              int count()
  *              @Override boolean equals()
+ *              @Override int hashCode()
  *              @Override String toString()
  * @param <T> Generic Object
  * @author Nikhil Daehee Agarwal
@@ -183,6 +184,21 @@ public class Stack<T> {
             }
         }
         return true;
+    }
+
+    /**
+     * Overrides Object class hashCode method
+     * @return hashCode of stack by summing all hashcode values of contents and then taking care of overflow.
+     */
+    @Override
+    public int hashCode(){
+        long sum = 0;
+        for(int i = 0;i<size;i++){
+            sum += stack[i].hashCode();
+        }
+        long fin = sum % Integer.MAX_VALUE;
+        fin = fin < 0 ? fin * (-1) : fin;
+        return (int) fin;
     }
 
     /**

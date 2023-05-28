@@ -1,4 +1,4 @@
-package Java.data_structures;
+package Java.data_structures.node_implementation;
 
 /**
  * Java implementation for DoubleNodes in a Doubly-LinkedList

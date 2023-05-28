@@ -1,4 +1,4 @@
-package Java.data_structures;
+package Java.data_structures.array_implementation;
 
 /**
  * Java Implementation for Dynamic Stack.
@@ -175,8 +175,6 @@ public class Stack<T> {
     @Override
     public boolean equals(Object obj){
         Stack<T> s = (Stack<T>) obj;
-        System.out.println(this);
-        System.out.println(s);
         if(s.size() != size) {
             return false;
         }

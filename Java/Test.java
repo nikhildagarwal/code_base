@@ -1,23 +1,16 @@
 package Java;
 
-import Java.data_structures.*;
-import Java.data_structures.array_implementation.*;
-import Java.data_structures.node_implementation.*;
+import Java.data_structures.node_implementation.Queue;
 
 public class Test {
 
     public static void main(String[] args){
-        Queue<Integer> q = new Queue<>(4);
-        System.out.println(q);
-        for(int i = 0;i<19;i++){
-            q.push(i);
-            System.out.println(q);
-        }
-        for(int i = 0;i<9;i++){
-            q.poll();
-            System.out.println(q);
-        }
-
+        Queue<Integer> q = new Queue<>();
+        q.push(349);
+        q.push(5);
+        q.push(6);
+        System.out.println(q.contains(4));
+        System.out.println(q.contains(6));
     }
 
 }

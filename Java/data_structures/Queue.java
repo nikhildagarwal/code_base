@@ -26,7 +26,26 @@ public class Queue<T> {
         this.front = 0;
     }
 
-    
+    @Override
+    public int hashCode(){
+        long sum =0;
+        for(int i = front;i<size;i++){
+            sum += (queue[i].hashCode());
+            sum %= Integer.MAX_VALUE;
+        }
+        long fin = sum < 0 ? sum * (-1) : sum;
+        return (int) fin;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+
+    }
+
+    @Override
+    public String toString(){
+
+    }
 
 
 }

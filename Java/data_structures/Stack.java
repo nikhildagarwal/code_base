@@ -198,6 +198,7 @@ public class Stack<T> {
         long sum = 0;
         for(int i = 0;i<size;i++){
             sum += stack[i].hashCode();
+            sum %= Integer.MAX_VALUE;
         }
         long fin = sum % Integer.MAX_VALUE;
         fin = fin < 0 ? fin * (-1) : fin;

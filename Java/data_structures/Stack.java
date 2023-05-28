@@ -43,6 +43,9 @@ public class Stack<T> {
      * @param capacity
      */
     public Stack(int capacity){
+        if(capacity <= 0){
+            throw new NegativeArraySizeException("capacity must be a positive value");
+        }
         this.capacity = capacity;
         this.stack = (T[]) new Object[capacity];
         this.size = 0;

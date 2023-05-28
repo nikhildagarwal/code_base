@@ -45,26 +45,13 @@ public class List<T> implements Iterable<T> {
     }
 
     /**
-     * Creates a List Object from a specified generic array, and a specified init
-     * capacity
-     * @param tArray   specified generic array
-     * @param capacity int capacity
-     */
-    public List(T[] tArray, int capacity) {
-        this.capacity = capacity;
-        this.size = tArray.length;
-        T[] newA = (T[]) new Object[((size / capacity) + 1) * capacity];
-        for (int i = 0; i < size; i++) {
-            newA[i] = tArray[i];
-        }
-        this.list = newA;
-    }
-
-    /**
      * Creates List Object with specified capacity
      * @param capacity user specified capacity (int)
      */
     public List(int capacity) {
+        if(capacity <= 0){
+            throw new NegativeArraySizeException("capacity must be a positive value");
+        }
         this.capacity = capacity;
         this.size = 0;
         this.list = (T[]) new Object[capacity];

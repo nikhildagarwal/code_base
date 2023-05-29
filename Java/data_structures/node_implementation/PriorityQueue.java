@@ -1,5 +1,9 @@
 package Java.data_structures.node_implementation;
 
+import Java.data_structures.array_implementation.List;
+
+import java.util.Iterator;
+
 /**
  * Java Implementation of PriorityQueue using Nodes (LinkedList Queue)
  * Dynamic sizing, no capacity specification needed, simply a chain of pointers pointing to the next element.
@@ -19,7 +23,7 @@ package Java.data_structures.node_implementation;
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */
-public class PriorityQueue<T> {
+public class PriorityQueue<T>{
 
     private Node<T> front;
     private Node<T> end;
@@ -217,7 +221,15 @@ public class PriorityQueue<T> {
         return "<-out- "+ans + "] <-in-";
     }
 
-    private <A,B> int comp(T insertVal, T queueVal){
+    /**
+     * Helper method to compare two generic objects
+     * Throws error if values are not of class Integer, String, Double or Char.
+     * Throws error if there is a Type Case fail.
+     * @param insertVal First Object to compare
+     * @param queueVal Second Object to compare
+     * @return <0 if left than, 0 if equal, >0 if greater than
+     */
+    private int comp(T insertVal, T queueVal){
         Class c = insertVal.getClass();
         if(c.equals(String.class)){
             String s1 = (String) insertVal;

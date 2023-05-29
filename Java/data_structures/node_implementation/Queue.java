@@ -85,6 +85,9 @@ public class Queue<T> {
         return size;
     }
 
+    /**
+     * Clear the Queue
+     */
     public void clear(){
         this.size = 0;
         this.front = null;

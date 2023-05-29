@@ -10,8 +10,9 @@ package Java.data_structures.node_implementation;
  *              T poll();
  *              int size();
  *              boolean isEmpty();
- *              boolean contains();
+ *              boolean contains(T value);
  *              void clear();
+ *              int count(T value);
  *              @Override boolean equals(Object obj);
  *              @Override int hashCode();
  *              @Override String toString();
@@ -107,6 +108,9 @@ public class PriorityQueue<T> {
         return size;
     }
 
+    /**
+     * Clear the Queue
+     */
     public void clear(){
         this.size = 0;
         this.front = null;
@@ -135,6 +139,23 @@ public class PriorityQueue<T> {
             start = start.next();
         }
         return false;
+    }
+
+    /**
+     * Check PriorityQueue object for value and return the number of occurrences of that value.
+     * @param value T value that we want to find.
+     * @return int number of occurrences of specified value
+     */
+    public int count(T value){
+        int c = 0;
+        Node<T> start = front;
+        while(start!=null){
+            if(start.val().equals(value)){
+                c++;
+            }
+            start = start.next();
+        }
+        return c;
     }
 
     /**

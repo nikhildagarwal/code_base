@@ -1,9 +1,5 @@
 package Java.data_structures.node_implementation;
 
-import Java.data_structures.array_implementation.List;
-
-import java.util.Iterator;
-
 /**
  * Java Implementation of PriorityQueue using Nodes (LinkedList Queue)
  * Dynamic sizing, no capacity specification needed, simply a chain of pointers pointing to the next element.

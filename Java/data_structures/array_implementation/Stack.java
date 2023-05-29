@@ -13,9 +13,9 @@ package Java.data_structures.array_implementation;
  *              boolean isEmpty()
  *              void clear()
  *              void reverse()
- *              boolean contains()
- *              int count()
- *              @Override boolean equals()
+ *              boolean contains(T value)
+ *              int count(T value)
+ *              @Override boolean equals(Object obj)
  *              @Override int hashCode()
  *              @Override String toString()
  * @param <T> Generic Object

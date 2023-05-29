@@ -132,8 +132,8 @@ public class Queue<T> {
             sum += (queue[i].hashCode());
             sum %= Integer.MAX_VALUE;
         }
-        long fin = sum < 0 ? sum * (-1) : sum;
-        return (int) fin;
+        sum = sum < 0 ? sum * (-1) : sum;
+        return (int) sum;
     }
 
     /**

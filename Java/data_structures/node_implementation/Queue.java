@@ -10,6 +10,10 @@ package Java.data_structures.node_implementation;
  *              int size();
  *              boolean isEmpty();
  *              boolean contains();
+ *              void clear();
+ *              @Override boolean equals(Object obj);
+ *              @Override int hashCode();
+ *              @Override String toString();
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */
@@ -81,6 +85,12 @@ public class Queue<T> {
         return size;
     }
 
+    public void clear(){
+        this.size = 0;
+        this.front = null;
+        this.end = null;
+    }
+
     /**
      * Checks to see if there are no elements in our Queue.
      * @return true if size is 0, else otherwise.
@@ -103,6 +113,65 @@ public class Queue<T> {
             start = start.next();
         }
         return false;
+    }
+
+    /**
+     * HashCode of our Queue based on the sum of all the unique hashCodes of the individual elements.
+     * Curtails the hashcode to take care of overflow
+     * @return int hashCOde
+     */
+    @Override
+    public int hashCode(){
+        long sum = 0;
+        Node<T> start = front;
+        while(start!=null){
+            sum += start.val().hashCode();
+            sum %= Integer.MAX_VALUE;
+            start = start.next();
+        }
+        sum = sum < 0 ? sum * (-1) : sum;
+        return (int) sum;
+    }
+
+    /**
+     * Checks to see if two queues are equal
+     * @param obj The Second queue that we want to compare
+     * @return true if the two queues are the same size and contain all the same elements in order, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj){
+        Queue<T> q = (Queue<T>) obj;
+        if(q.size() != this.size()){
+            return false;
+        }
+        Node<T> s1 = q.front;
+        Node<T> s2 = this.front;
+        while(s1!=null){
+            if(!s1.val().equals(s2.val())){
+                return false;
+            }
+            s1 = s1.next();
+            s2 = s2.next();
+        }
+        return true;
+    }
+
+    /**
+     * Returns the Queue as visualized string
+     * @return String of the Queue
+     */
+    @Override
+    public String toString(){
+        String ans = "[";
+        Node<T> start = front;
+        while(start != null){
+            ans += start.val();
+            if (start.next()!=null) {
+                ans += ", ";
+            }
+            start = start.next();
+        }
+        return "<-out- "+ans + "] <-in-";
     }
 
 }

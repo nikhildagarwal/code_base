@@ -20,6 +20,14 @@ public class Node<T> {
     private Node<T> next;
 
     /**
+     * Default Null Node
+     */
+    public Node(){
+        this.val = null;
+        this.next = null;
+    }
+
+    /**
      * Constructor for Node
      * Must be initialized with a given Generic Object
      * @param val Generic Object

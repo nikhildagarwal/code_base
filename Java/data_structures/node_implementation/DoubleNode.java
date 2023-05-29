@@ -23,6 +23,15 @@ public class DoubleNode<T> {
     private DoubleNode<T> prev;
 
     /**
+     * Default Constructor for Null DoubleNode
+     */
+    public DoubleNode(){
+        this.val = null;
+        this.next = null;
+        this.prev = null;
+    }
+
+    /**
      * Constructor for DoubleNode Object
      * Must be init with a given Generic Object
      * @param val Generic Object

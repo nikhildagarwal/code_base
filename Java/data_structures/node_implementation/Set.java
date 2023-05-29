@@ -10,18 +10,78 @@ public class Set<T> {
     private Node<Integer> front;
     private Node<Integer> end;
     private Node<T>[][] buckets;
+    private int size;
 
     public Set(){
         this.front = null;
         this.end = null;
         this.buckets = (Node<T>[][]) new Node[BUCKETS_CAPACITY][2];
+        this.size = 0;
+    }
+
+    public int size(){
+        return size;
     }
 
     public boolean add(T value){
         int codeIndex = generateCodeIndex(value);
         addToCodesList(codeIndex);
         boolean added = addToBucket(codeIndex,value);
+        if(added){
+            size++;
+        }
         return added;
+    }
+
+    public boolean remove(T value){
+        int codeIndex = generateCodeIndex(value);
+        Node<T> start = buckets[codeIndex][HEAD];
+        if(start == null){
+            return false;
+        }
+        if(start.val().equals(value)){
+            buckets[codeIndex][HEAD] = buckets[codeIndex][HEAD].next();
+            if(buckets[codeIndex][HEAD] ==null){
+                removeFromCodeIndex(codeIndex);
+            }
+            size--;
+            return true;
+        }
+        while(start.next()!=null){
+            if(start.next().val().equals(value)){
+                start.next(start.next().next());
+                size--;
+                return true;
+            }
+            start = start.next();
+        }
+        return false;
+    }
+
+    private void removeFromCodeIndex(int codeIndex){
+        if(front.val()==codeIndex) {
+            front = front.next();
+            return;
+        }
+        Node<Integer> start = front;
+        while(start.next()!=null){
+            if(start.next().val()==codeIndex){
+                start.next(start.next().next());
+                return;
+            }
+            start = start.next();
+        }
+    }
+
+    public boolean contains(T value){
+        int codeIndex = generateCodeIndex(value);
+        Node<T> start = buckets[codeIndex][HEAD];
+        while(start!=null){
+            if(start.val().equals(value)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

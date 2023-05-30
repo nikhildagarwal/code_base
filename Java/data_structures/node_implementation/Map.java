@@ -27,6 +27,73 @@ public class Map<K,V> {
         addToBucket(codeIndex,key,value);
     }
 
+    public void clear(){
+        this.front = null;
+        this.end = null;
+        this.size = 0;
+        this.buckets = (Node<Pair<K,V>>[][]) new Node[BUCKETS_CAPACITY][2];
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public Object getOrDefault(K key, Object obj){
+        int codeIndex = genCodeIndex(key);
+        Node<Pair<K,V>> start = buckets[codeIndex][HEAD];
+        while(start!=null){
+            Pair<K,V> p = start.val();
+            if(p.first().equals(key)){
+                return p.second();
+            }
+            start = start.next();
+        }
+        return obj;
+    }
+
+    public V get(K key){
+        int codeIndex = genCodeIndex(key);
+        Node<Pair<K,V>> start = buckets[codeIndex][HEAD];
+        while(start!=null){
+            Pair<K,V> p = start.val();
+            if(p.first().equals(key)){
+                return p.second();
+            }
+            start = start.next();
+        }
+        return null;
+    }
+
+    public boolean containsKey(K key){
+        int codeIndex = genCodeIndex(key);
+        Node<Pair<K,V>> start = buckets[codeIndex][HEAD];
+        while(start!=null){
+            if(start.val().first().equals(key)){
+                return true;
+            }
+            start = start.next();
+        }
+        return false;
+    }
+
+    public boolean containsValue(V value){
+        Node<Integer> start = front;
+        while(start!=null){
+            Node<Pair<K,V>> begin = buckets[start.val()][HEAD];
+            while(begin!=null){
+                if(begin.val().second().equals(value)){
+                    return true;
+                }
+            }
+            start = start.next();
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
         String ans = "Map\n";

@@ -78,6 +78,7 @@ public class Set<T> {
         if(start.val().equals(value)){
             buckets[codeIndex][HEAD] = buckets[codeIndex][HEAD].next();
             if(buckets[codeIndex][HEAD] ==null){
+                buckets[codeIndex][STREAM] = null;
                 removeFromCodeIndex(codeIndex);
             }
             size--;

@@ -2,9 +2,9 @@ package Java.data_structures;
 
 /**
  * Implementation of C++ pair object in Java
- * Init as -->  Pair<A,B> p1 = new Pair<>();
- * Methods -->  A getFirst();
- *              B getSecond();
+ * Init as -->  Pair<A,B> p1 = new Pair<>(A,B);
+ * Methods -->  A first();
+ *              B second();
  *              void setFirst(A a);
  *              void setSecond(B b);
  *              void set(A a, B b);
@@ -46,19 +46,10 @@ public class Pair<A, B> implements Comparable{
     }
 
     /**
-     * Constructor to create duplicate Pair object
-     * @param p Pair Object to duplicate
-     */
-    public Pair(Pair<A,B> p){
-        this.value1 = p.getFirst();
-        this.value2 = p.getSecond();
-    }
-
-    /**
      * gets the first value in the pair
      * @return Object of first value
      */
-    public A getFirst() {
+    public A first() {
         return value1;
     }
 
@@ -66,7 +57,7 @@ public class Pair<A, B> implements Comparable{
      * gets the second value in the pair
      * @return Object of the second value
      */
-    public B getSecond() {
+    public B second() {
         return value2;
     }
 
@@ -105,7 +96,7 @@ public class Pair<A, B> implements Comparable{
     @Override
     public boolean equals(Object obj) {
         Pair<A, B> newPair = (Pair<A, B>) obj;
-        return newPair.getFirst().equals(value1) && newPair.getSecond().equals(value2);
+        return newPair.first().equals(value1) && newPair.second().equals(value2);
     }
 
     /**

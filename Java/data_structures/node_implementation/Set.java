@@ -21,8 +21,9 @@ package Java.data_structures.node_implementation;
  */
 public class Set<T> {
 
-    private static final int DIVISOR = 512;
-    private static final int BUCKETS_CAPACITY = Integer.MAX_VALUE / DIVISOR;
+
+    private static final int BUCKETS_CAPACITY = 16;
+    private static final double LOAD = 0.75;
     private static final int HEAD = 0;
     private static final int STREAM = 1;
 
@@ -30,6 +31,8 @@ public class Set<T> {
     private Node<Integer> end;
     private Node<T>[][] buckets;
     private int size;
+    private double currLoad;
+    private double load;
 
     /**
      * Default constructor for set object
@@ -39,6 +42,21 @@ public class Set<T> {
         this.end = null;
         this.buckets = (Node<T>[][]) new Node[BUCKETS_CAPACITY][2];
         this.size = 0;
+        this.currLoad = 0.0;
+        this.load = LOAD;
+    }
+
+    /**
+     * Overload Constructor for Set with given load factor.
+     * @param load double loadFactor. Ratio of elements in the set to buckets available in the set.
+     */
+    public Set(double load){
+        this.front = null;
+        this.end = null;
+        this.buckets = (Node<T>[][]) new Node[BUCKETS_CAPACITY][2];
+        this.size = 0;
+        this.currLoad = 0.0;
+        this.load = load;
     }
 
     /**
@@ -60,6 +78,10 @@ public class Set<T> {
         boolean added = addToBucket(codeIndex,value);
         if(added){
             size++;
+            currLoad = (double) size / buckets.length;
+            if(currLoad>load){
+                rehash();
+            }
         }
         return added;
     }
@@ -127,6 +149,7 @@ public class Set<T> {
         this.end = null;
         this.buckets = (Node<T>[][]) new Node[BUCKETS_CAPACITY][2];
         this.size = 0;
+        this.currLoad = 0.0;
     }
 
     /**
@@ -293,7 +316,29 @@ public class Set<T> {
     private int generateCodeIndex(T value){
         int code = value.hashCode();
         code = code < 0 ? code * (-1) : code;
-        return code / DIVISOR;
+        return code % buckets.length;
+    }
+
+    /**
+     * Rehashes our set and doubles its bucket capacity to take care for increasing load.
+     */
+    private void rehash(){
+        Set<T> s = new Set<>(this.load);
+        s.buckets = (Node<T>[][]) new Node[this.buckets.length * 2][2];
+        Node<Integer> start = front;
+        while(start!=null){
+            Node<T> begin = buckets[start.val()][HEAD];
+            while(begin!=null){
+                s.add(begin.val());
+                begin = begin.next();
+            }
+            start = start.next();
+        }
+        this.front = s.front;
+        this.end = s.end;
+        this.buckets = s.buckets;
+        this.size = s.size;
+        this.currLoad = s.currLoad;
     }
 
 }

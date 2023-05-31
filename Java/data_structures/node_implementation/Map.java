@@ -2,12 +2,10 @@ package Java.data_structures.node_implementation;
 
 import Java.data_structures.Pair;
 
-import java.util.GregorianCalendar;
-
 public class Map<K,V> {
 
-    private static final int DIVISOR = 512;
-    private static final int BUCKETS_CAPACITY = Integer.MAX_VALUE / DIVISOR;
+    private static final double LOAD = 0.75;
+    private static final int BUCKETS_CAPACITY = 16;
     private static final int HEAD = 0;
     private static final int END = 1;
 
@@ -15,18 +13,35 @@ public class Map<K,V> {
     private Node<Integer> end;
     private int size;
     private Node<Pair<K,V>>[][] buckets;
+    private double load;
+    private double currLoad;
 
     public Map(){
         this.front = null;
         this.end = null;
         this.size = 0;
         this.buckets = (Node<Pair<K,V>>[][]) new Node[BUCKETS_CAPACITY][2];
+        this.currLoad = 0.0;
+        this.load = LOAD;
+    }
+
+    public Map(double load){
+        this.front = null;
+        this.end = null;
+        this.size = 0;
+        this.buckets = (Node<Pair<K,V>>[][]) new Node[BUCKETS_CAPACITY][2];
+        this.currLoad = 0.0;
+        this.load = load;
     }
 
     public void put(K key, V value){
         int codeIndex = genCodeIndex(key);
         addToHashCodes(codeIndex);
         addToBucket(codeIndex,key,value);
+        currLoad = (double) size / buckets.length;
+        if(currLoad > load){
+            rehash();
+        }
     }
 
     public void clear(){
@@ -34,6 +49,7 @@ public class Map<K,V> {
         this.end = null;
         this.size = 0;
         this.buckets = (Node<Pair<K,V>>[][]) new Node[BUCKETS_CAPACITY][2];
+        this.currLoad = 0.0;
     }
 
     public int size(){
@@ -249,11 +265,30 @@ public class Map<K,V> {
     private int genCodeIndex(K key){
         int code = key.hashCode();
         code = code < 0 ? code * (-1) : code;
-        return code / DIVISOR;
+        return code % buckets.length;
+    }
+
+    private void rehash(){
+        Map<K,V> map = new Map<>(load);
+        map.buckets = (Node<Pair<K,V>>[][]) new Node[buckets.length * 2][2];
+        Node<Integer> start = front;
+        while(start!=null){
+            Node<Pair<K,V>> begin = buckets[start.val()][HEAD];
+            while(begin!=null){
+                map.put(begin.val().first(),begin.val().second());
+                begin = begin.next();
+            }
+            start = start.next();
+        }
+        this.front = map.front;
+        this.end = map.end;
+        this.buckets = map.buckets;
+        this.size = map.size;
+        this.currLoad = map.currLoad;
     }
 
     public static void main(String[] args){
-        Map<String,String> m = new Map<>();
+        Map<String,String> m = new Map<>(0.15);
         m.put("Nikhil","Rutgers University");
         m.put("Hope","Rutgers University");
         m.put("Jason","Maryland");

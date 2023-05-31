@@ -2,15 +2,17 @@ package Java.data_structures.node_implementation;
 
 /**
  * Java implementation for Nodes in a Singly-LinkedList
- * Init as -->  Node<T> node1 = new Node<>(Object); // initialized with value set to Object
+ * Init as -->  Node<T> node = new Node<>();  // null Node Object
+ *              Node<T> node1 = new Node<>(Object); // initialized with value set to Object
  *              Node<T> node2 = new Node<>(Object,node1); // initialized with value set to Object and the next Node
  *                                                                   set to node1.
- * Methods -->  T val()
- *              void val(T val)
- *              Node<T> next()
- *              void next(Node<T>)
- *              @Override String toString()
- *              @Override boolean equals(Object obj)
+ * Methods -->  T val();
+ *              void val(T val);
+ *              Node<T> next();
+ *              void next(Node<T>);
+ *              @Override String toString();
+ *              @Override boolean equals(Object obj);
+ *              @Override int hashCode();
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */
@@ -101,5 +103,14 @@ public class Node<T> {
     public boolean equals(Object obj){
         Node<T> node = (Node<T>) obj;
         return node == this;
+    }
+
+    /**
+     * Override method for Object hashCode, returns the hashCode of the pointers value.
+     * @return int hashCode
+     */
+    @Override
+    public int hashCode(){
+        return this.val.hashCode();
     }
 }

@@ -9,9 +9,7 @@ import Java.data_structures.node_implementation.Stack;
 public class Test {
 
     public static void main(String[] args){
-        int hi = 2;
-        double yo = (double) hi / 3;
-        System.out.println(yo);
+
     }
 
 }

@@ -287,25 +287,4 @@ public class Map<K,V> {
         this.currLoad = map.currLoad;
     }
 
-    public static void main(String[] args){
-        Map<String,String> m = new Map<>(0.15);
-        m.put("Nikhil","Rutgers University");
-        m.put("Hope","Rutgers University");
-        m.put("Jason","Maryland");
-        m.put("Byron","NJIT");
-        System.out.println(m);
-        System.out.println("m size: "+m.size());
-        Map<String,String> update = new Map<>();
-        update.put("Aman","Rutgers University");
-        update.put("Jason","Rutgers University");
-        update.put("Byron","Rutgers University");
-        update.put("Navin","BRHS");
-        System.out.println(update);
-        System.out.println("update size: "+update.size());
-        m.putAll(update);
-        System.out.println(m);
-        System.out.println("m size: "+m.size());
-        System.out.println(m.count("Rutgers University"));
-    }
-
 }

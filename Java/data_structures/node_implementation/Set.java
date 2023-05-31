@@ -8,6 +8,7 @@ package Java.data_structures.node_implementation;
  * Let's say we have a bucket b. b[0] will contain the pointer to the head of the LinkedList, while b[1] will contain the pointer to the last element in the LinkedList.
  * This allows us to add elements to the back of the List without losing the pointer to the head of the List.
  * Init as -->  Set<T> set = new Set<>();
+ *              Set<T> set = new Set<>(0.95);  // load factor of 0.95
  * Methods -->  int size();
  *              boolean add(T value);
  *              boolean remove(T value);

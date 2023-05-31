@@ -13,6 +13,7 @@ package Java.data_structures.node_implementation;
  *              void prev(DoubleNode<T>)
  *              @Override String toString()
  *              @Override boolean equals(Object obj)
+ *              @Override
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */

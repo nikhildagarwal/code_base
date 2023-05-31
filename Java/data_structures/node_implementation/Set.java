@@ -21,7 +21,7 @@ package Java.data_structures.node_implementation;
  */
 public class Set<T> {
 
-    private static final int DIVISOR = 256;
+    private static final int DIVISOR = 512;
     private static final int BUCKETS_CAPACITY = Integer.MAX_VALUE / DIVISOR;
     private static final int HEAD = 0;
     private static final int STREAM = 1;

@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 public class Map<K,V> {
 
-    private static final int DIVISOR = 256;
+    private static final int DIVISOR = 512;
     private static final int BUCKETS_CAPACITY = Integer.MAX_VALUE / DIVISOR;
     private static final int HEAD = 0;
     private static final int END = 1;

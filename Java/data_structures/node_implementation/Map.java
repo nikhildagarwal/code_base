@@ -2,6 +2,8 @@ package Java.data_structures.node_implementation;
 
 import Java.data_structures.Pair;
 
+import java.util.GregorianCalendar;
+
 public class Map<K,V> {
 
     private static final int DIVISOR = 256;
@@ -88,10 +90,67 @@ public class Map<K,V> {
                 if(begin.val().second().equals(value)){
                     return true;
                 }
+                begin = begin.next();
             }
             start = start.next();
         }
         return false;
+    }
+
+    public V remove(K key){
+        int codeIndex = genCodeIndex(key);
+        Node<Pair<K,V>> start = buckets[codeIndex][HEAD];
+        if(start == null){
+            return null;
+        }
+        if(start.val().first().equals(key)){
+            V returnVal = start.val().second();
+            buckets[codeIndex][HEAD] = buckets[codeIndex][HEAD].next();
+            if(buckets[codeIndex][HEAD] == null){
+                buckets[codeIndex][END] = null;
+                removeFromCodeList(codeIndex);
+            }
+            size--;
+            return returnVal;
+        }
+        while(start.next()!=null){
+            if(start.next().val().first().equals(key)){
+                V returnVal = start.next().val().second();
+                start.next(start.next().next());
+                size--;
+                return returnVal;
+            }
+            start = start.next();
+        }
+        return null;
+    }
+
+    public int count(V value){
+        int ans =0;
+        Node<Integer> start = front;
+        while(start!=null){
+            Node<Pair<K,V>> begin = buckets[start.val()][HEAD];
+            while(begin!=null){
+                if(begin.val().second().equals(value)){
+                    ans++;
+                }
+                begin = begin.next();
+            }
+            start = start.next();
+        }
+        return ans;
+    }
+
+    public void putAll(Map<K,V> toAdd){
+        Node<Integer> start = toAdd.front;
+        while(start!=null){
+            Node<Pair<K,V>> begin = toAdd.buckets[start.val()][HEAD];
+            while(begin!=null){
+                this.put(begin.val().first(),begin.val().second());
+                begin = begin.next();
+            }
+            start = start.next();
+        }
     }
 
     @Override
@@ -107,6 +166,28 @@ public class Map<K,V> {
             start = start.next();
         }
         return ans + "----------";
+    }
+
+    /**
+     * removes node with value "code index" from LinkedList of codeIndex nodes
+     * @param codeIndex int codeIndex node value
+     */
+    private void removeFromCodeList(int codeIndex){
+        if(front.val()==codeIndex){
+            front = front.next();
+            if(front == null){
+                end = null;
+            }
+            return;
+        }
+        Node<Integer> start = front;
+        while(start.next()!=null){
+            if(start.next().val()==codeIndex){
+                start.next(start.next().next());
+                return;
+            }
+            start = start.next();
+        }
     }
 
     private void addToBucket(int codeIndex, K key, V value){
@@ -172,17 +253,24 @@ public class Map<K,V> {
     }
 
     public static void main(String[] args){
-        Map<Integer,String> m = new Map<>();
-        m.put(3,"jo");
-        m.put(264,"no");
-        m.put(5,"jpdl");
+        Map<String,String> m = new Map<>();
+        m.put("Nikhil","Rutgers University");
+        m.put("Hope","Rutgers University");
+        m.put("Jason","Maryland");
+        m.put("Byron","NJIT");
         System.out.println(m);
-        m.put(93492,"Nki");
+        System.out.println("m size: "+m.size());
+        Map<String,String> update = new Map<>();
+        update.put("Aman","Rutgers University");
+        update.put("Jason","Rutgers University");
+        update.put("Byron","Rutgers University");
+        update.put("Navin","BRHS");
+        System.out.println(update);
+        System.out.println("update size: "+update.size());
+        m.putAll(update);
         System.out.println(m);
-        m.put(7,"Nki");
-        System.out.println(m);
-        m.put(7,"Hope Loves me");
-        System.out.println(m);
+        System.out.println("m size: "+m.size());
+        System.out.println(m.count("Rutgers University"));
     }
 
 }

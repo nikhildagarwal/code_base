@@ -178,11 +178,14 @@ public class Set<T> {
 
     /**
      * removes node with value "code index" from LinkedList of codeIndex nodes
-     * @param codeIndex
+     * @param codeIndex int codeIndex
      */
     private void removeFromCodeIndex(int codeIndex){
         if(front.val()==codeIndex) {
             front = front.next();
+            if(front==null){
+                end = null;
+            }
             return;
         }
         Node<Integer> start = front;

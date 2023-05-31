@@ -13,7 +13,7 @@ package Java.data_structures.node_implementation;
  *              void prev(DoubleNode<T>)
  *              @Override String toString()
  *              @Override boolean equals(Object obj)
- *              @Override
+ *              @Override int hashCode();
  * @param <T> Generic Object Limiter
  * @author Nikhil Daehee Agarwal
  */
@@ -126,6 +126,15 @@ public class DoubleNode<T> {
     public boolean equals(Object obj){
         DoubleNode<T> dn = (DoubleNode<T>) obj;
         return dn == this;
+    }
+
+    /**
+     * Override method for Object hashCode, returns the hashCode of the pointers value.
+     * @return int hashCode
+     */
+    @Override
+    public int hashCode(){
+        return this.val.hashCode();
     }
 
 }

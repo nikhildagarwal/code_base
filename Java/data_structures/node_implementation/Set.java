@@ -3,8 +3,7 @@ package Java.data_structures.node_implementation;
 /**
  * Java implementation of HashSet Object.
  * Uses HashCodes to determine which bucket to add elements too.
- * Change the number of buckets that set contains by changing the value of var DIVISOR.
- * The buckets are structured with a 2-D array of size (Integer.MAX_VALUE / DIVISOR) x 2, while the elements of a bucket are stored in a linkedList.
+ * Elements of a bucket are stored in a linkedList.
  * Let's say we have a bucket b. b[0] will contain the pointer to the head of the LinkedList, while b[1] will contain the pointer to the last element in the LinkedList.
  * This allows us to add elements to the back of the List without losing the pointer to the head of the List.
  * Init as -->  Set<T> set = new Set<>();

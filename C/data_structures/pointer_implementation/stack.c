@@ -63,12 +63,17 @@ int contains(Stack* s, int value){
     return 0;
 }
 
+int size(Stack* s){
+    return s->size;
+}
+
 int main() {
     Stack stack1;
     initStack(&stack1);
     for(int i = 0;i<13;i++){
         push(&stack1,i);
     }
+    printf("Size: %d\n",size(&stack1));
     printf("Contains 6?: %d\n",contains(&stack1,6));
     printf("Contains 13?: %d\n",contains(&stack1,13));
     while(!isEmpty(&stack1)){

@@ -22,7 +22,7 @@ void push(Stack* s, int value){
 
 void initStack(Stack* s){
     s->size = INIT_SIZE;
-    s->top = malloc(sizeof(int));
+    s->top = (int*)malloc(sizeof(int));
 }
 
 int pop(Stack* s){

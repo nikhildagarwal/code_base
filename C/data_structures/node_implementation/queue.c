@@ -104,26 +104,3 @@ int contains(Queue* q, int value){
     }
     return 0;
 }
-
-int main(){
-    Queue queue1;
-    initQueue(&queue1);
-    push(&queue1,31);
-    push(&queue1,3);
-    push(&queue1,-43);
-    push(&queue1,-32);
-    push(&queue1,77);
-    printf("Size: %d\n",size(&queue1));
-    printQueue(&queue1);
-    printf("Peek: %d\n",peek(&queue1));
-    printf("Queue contains 31: %d\n",contains(&queue1,31));
-    printf("polled: %d\n",poll(&queue1));
-    printQueue(&queue1);
-    printf("Queue contains 31: %d\n",contains(&queue1,31));
-    printf("polled: %d\n",poll(&queue1));
-    printQueue(&queue1);
-    printf("polled: %d\n",poll(&queue1));
-    printQueue(&queue1);
-    endQueue(&queue1);
-    return 0;
-}

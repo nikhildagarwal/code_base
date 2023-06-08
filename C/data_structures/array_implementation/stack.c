@@ -1,3 +1,21 @@
+/**
+ * Implementation of Stack in C.
+ * Dynamically resizes itself when size is too small. 
+ * Dynamically resizes it self when (length(of internal array) - size(of stack)) diff reaches a certain value.
+ * Init as -->  Stack stack1;
+ *              initStack(&stack1);
+ * Destroy -->  endStack(&stack1);
+ * Methods -->  void printStack(Stack* stack);
+ *              void push(Stack* stack, int value);
+ *              int isEmpty(Stack* stack);
+ *              int contains(Stack* stack, int value);
+ *              int peek(Stack* stack);
+ *              int pop(Stack* stack);
+ *              int count(Stack* stack, int value);
+ *              int size(Stack* stack);
+ * @author Nikhil Daehee Agarwal
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -5,19 +23,27 @@ const int INIT_CAPACITY = 10;
 const int INIT_SIZE = 0;
 const int EMPTY_STACK_ERROR = 8;
 
-
+/**
+ * Definition for Stack structure
+*/
 typedef struct{
     int size;
     int length;
     int* array;
 } Stack;
 
+/**
+ * Initializes the stack structure and allocates space for the stack.
+*/
 void initStack(Stack* s){
     s->size = INIT_SIZE;
     s->length = INIT_CAPACITY;
     s->array = (int*) malloc(INIT_CAPACITY * sizeof(int));
 }
 
+/**
+ * Free's allocated memory for stack
+*/
 void endStack(Stack* s){
     free(s->array);
     printf("Free Pointer: Success\n");
@@ -37,6 +63,10 @@ void printStack(Stack* s){
     printf("] --> top\n");
 }
 
+/**
+ * Adds a value to the stack strucutre at the top.
+ * Stack follows LIFO principle
+*/
 void push(Stack* s, int value){
     if(s->size == s->length){
         s->array = (int*)realloc(s->array,(s->length + INIT_CAPACITY) * sizeof(int));
@@ -46,6 +76,10 @@ void push(Stack* s, int value){
     s->size++;
 }
 
+/**
+ * returns 1 if the stack contains no elements (size is 0),
+ * return 0 if stack is not empty.
+*/
 int isEmpty(Stack* s){
     if(s->size == 0){
         return 1;
@@ -53,6 +87,9 @@ int isEmpty(Stack* s){
     return 0;
 }
 
+/**
+ * checks to see if the stack structure contains a specified value
+*/
 int contains(Stack* s, int value){
     for(int i = 0;i < s->size;i++){
         if(s->array[i] == value){
@@ -62,6 +99,9 @@ int contains(Stack* s, int value){
     return 0;
 }
 
+/**
+ * returns the top element of the stack without removing the element
+*/
 int peek(Stack* s){
     if(s->size == 0){
         printf("Empty Stack Exception");
@@ -70,6 +110,11 @@ int peek(Stack* s){
     return s->array[s->size - 1];
 }
 
+/**
+ * Pops the top most element of our stack.
+ * returns the popped value.
+ * if the stack structure is empty, throws an error
+*/
 int pop(Stack* s){
     if(s->size == 0){
         printf("Empty Stack Exception");
@@ -84,6 +129,16 @@ int pop(Stack* s){
     return value;
 }
 
+/**
+ * getter method for the size of the structure.
+*/
+int size(Stack* s){
+    return s->size;
+}
+
+/**
+ * Returns the number of times a certain value is found in the stack structure
+*/
 int count(Stack* s, int value){
     int c = 0;
     for(int i = 0;i<s->size;i++){
@@ -92,27 +147,4 @@ int count(Stack* s, int value){
         }
     }
     return c;
-}
-
-int main() {
-    Stack stack1;
-    initStack(&stack1);
-    printStack(&stack1);
-    for(int i = 0;i<17;i++){
-        push(&stack1,i+1);
-    }
-    push(&stack1,3);
-    push(&stack1,3);
-    printStack(&stack1);
-    printf("count of value 3: %d\n",count(&stack1,3));
-    printf("Stack contains 17? --> %d\n",contains(&stack1,17));
-    printf("Stack contains 18? --> %d\n",contains(&stack1,18));
-    printf("top value: %d\n",peek(&stack1));
-    while(!isEmpty(&stack1)){
-        printStack(&stack1);
-        printf("popped: %d\n",pop(&stack1));
-    }
-    printStack(&stack1);
-    endStack(&stack1);
-    return 0;
 }

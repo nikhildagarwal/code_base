@@ -1,3 +1,21 @@
+/**
+ * Implementation for Stack in C.
+ * Uses Node structures linked together into a singly linked list.
+ * Stack follows Last in First Out (LIFO) principle
+ * Init as -->  Stack stack1;
+ *              initStack(&stack1);
+ * Destroy -->  endStack(&stack1);
+ * Methods -->  void push(Stack* s, int value);
+ *              void printStack(Stack* s);
+ *              int count(Stack* s, int value);
+ *              int contains(Stack* s, int value);
+ *              int isEmpty(Stack* s);
+ *              int pop(Stack* s);
+ *              int peek(Stack* s);
+ *              int size(Stack* s);
+ * @author Nikhil Daehee Agarwal
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

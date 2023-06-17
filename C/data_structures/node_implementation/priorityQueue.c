@@ -67,6 +67,27 @@ int size(PriorityQueue* pq){
     return pq->size;
 }
 
+int peek(PriorityQueue* pq){
+    if(pq->size == 0){
+        printf("Empty Queue Error");
+        exit(EMPTY_QUEUE_ERROR);
+    }
+    return pq->front->val;
+}
+
+int poll(PriorityQueue* pq){
+    if(pq->size == 0){
+        printf("Empty Queue Error");
+        exit(EMPTY_QUEUE_ERROR);
+    }
+    struct Node* nodeToPop = pq->front;
+    pq->front = pq->front->next;
+    int valToReturn = nodeToPop->val;
+    pq->size--;
+    free(nodeToPop);
+    return valToReturn;
+}
+
 int main() {
     PriorityQueue pq1;
     initPriorityQueue(&pq1);
@@ -81,5 +102,7 @@ int main() {
     add(&pq1,10);
     printPriorityQueue(&pq1);
     printf("size: %d\n",size(&pq1));
+    printf("top: %d\n",poll(&pq1));
+    printPriorityQueue(&pq1);
     return 0;
 }

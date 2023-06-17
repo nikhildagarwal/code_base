@@ -19,6 +19,16 @@ void initPriorityQueue(PriorityQueue* pq){
     pq->front = NULL;
 }
 
+void endPriorityQueue(PriorityQueue* pq){
+    pq->size = INIT_SIZE;
+    struct Node* start = pq->front;
+    while(start!=NULL){
+        struct Node* nodeToFree = start;
+        start = start->next;
+        free(nodeToFree);
+    }
+}
+
 void printPriorityQueue(PriorityQueue* pq){
     printf("front [");
     struct Node* start = pq->front;
@@ -104,5 +114,6 @@ int main() {
     printf("size: %d\n",size(&pq1));
     printf("top: %d\n",poll(&pq1));
     printPriorityQueue(&pq1);
+    endPriorityQueue(&pq1);
     return 0;
 }

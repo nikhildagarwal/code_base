@@ -98,22 +98,28 @@ int poll(PriorityQueue* pq){
     return valToReturn;
 }
 
+void reverse(PriorityQueue* pq){
+    if(pq->size == 0 || pq->size == 1){
+        return;
+    }
+    struct Node* prev = NULL;
+    while(pq->front->next!=NULL){
+        struct Node* next = pq->front->next;
+        pq->front->next = prev;
+        prev = pq->front;
+        pq->front = next;
+    }
+    pq->front->next = prev;
+}
+
 int main() {
     PriorityQueue pq1;
     initPriorityQueue(&pq1);
-    printPriorityQueue(&pq1);
-    add(&pq1,78);
-    add(&pq1,-5);
-    add(&pq1,3);
-    add(&pq1,7);
-    add(&pq1,4);
-    add(&pq1,34);
-    add(&pq1,-9);
-    add(&pq1,10);
-    printPriorityQueue(&pq1);
-    printf("size: %d\n",size(&pq1));
-    printf("top: %d\n",poll(&pq1));
-    printPriorityQueue(&pq1);
+    for(int i = 0;i<13;i++){
+        add(&pq1,i);
+        reverse(&pq1);
+        printPriorityQueue(&pq1);
+    }
     endPriorityQueue(&pq1);
     return 0;
 }

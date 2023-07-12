@@ -1,24 +1,56 @@
+/**
+ * Implementation of a PriorityQueue data structure in C.
+ * Uses Node structures linked together into a singly linked list.
+ * Queue follows First in First Out (FIFO) principle.
+ * Automatically inserts nodes into the linkedlist at the correct place to order all elements from least to greatest.
+ * Init as -->  PriorityQueue pq1;
+ *              initPriorityQueue(&pq1);
+ * Destroy -->  endPriorityQueue(&pq1);
+ * Methods -->  void add(PriorityQueue* pq, int value);
+ *              void printPriorityQueue(PriorityQueue* pq);
+ *              int size(PriorityQueue* pq);
+ *              int peek(PriorityQueue* pq);
+ *              int poll(PriorityQueue* pq);
+ *              int reverse(PriorityQueue* pq);
+ * @author Nikhil Daehee Agarwal
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
 const int INIT_SIZE = 0;
 const int EMPTY_QUEUE_ERROR = 7;
 
+/**
+ * Constructor For node in linked list
+*/
 struct Node{
     int val;
     struct Node* next;
 };
 
+/**
+ * Constructor for PriorityQueue
+*/
 typedef struct{
     int size;
     struct Node* front;
 } PriorityQueue;
 
+/**
+ * Initializes the Priority Queue
+ * @param pq : pointer to PriorityQueue variable
+*/
 void initPriorityQueue(PriorityQueue* pq){
     pq->size = INIT_SIZE;
     pq->front = NULL;
 }
 
+/**
+ * Destroys the Priority Queue
+ * Frees all allocated memory
+ * @param pq : pointer to PriorityQueue variable
+*/
 void endPriorityQueue(PriorityQueue* pq){
     pq->size = INIT_SIZE;
     struct Node* start = pq->front;
@@ -29,6 +61,10 @@ void endPriorityQueue(PriorityQueue* pq){
     }
 }
 
+/**
+ * Prints priority Queue to command line
+ * @param pq : pointer to PriorityQueue variable
+*/
 void printPriorityQueue(PriorityQueue* pq){
     printf("front [");
     struct Node* start = pq->front;
@@ -42,6 +78,11 @@ void printPriorityQueue(PriorityQueue* pq){
     printf("]\n");
 }
 
+/**
+ * adds value to the priorityQueue\
+ * @param pq : pointer to PriorityQueue variable
+ * @param value : integer value to add
+*/
 void add(PriorityQueue* pq, int value){
     if(pq->size == 0){
         pq->front = (struct Node*)malloc(sizeof(struct Node));
@@ -73,10 +114,18 @@ void add(PriorityQueue* pq, int value){
     pq->size++;
 }
 
+/**
+ * method to return the size of the PriorityQueue
+ * @param pq : Pointer to PriorityQueue variable
+*/
 int size(PriorityQueue* pq){
     return pq->size;
 }
 
+/**
+ * method to return the top value of the priorityQueue
+ * @param pq : Pointer to PriorityQueue variable
+*/
 int peek(PriorityQueue* pq){
     if(pq->size == 0){
         printf("Empty Queue Error");
@@ -85,6 +134,10 @@ int peek(PriorityQueue* pq){
     return pq->front->val;
 }
 
+/**
+ * method to return the top value of the priorityQueue while also removing the value from the PriorityQueue
+ * @param pq : Pointer to PriorityQueue variable
+*/
 int poll(PriorityQueue* pq){
     if(pq->size == 0){
         printf("Empty Queue Error");
@@ -98,6 +151,10 @@ int poll(PriorityQueue* pq){
     return valToReturn;
 }
 
+/**
+ * method to reverse the direction of the PriorityQueue
+ * @param pq : Pointer to PriorityQueue variable
+*/
 void reverse(PriorityQueue* pq){
     if(pq->size == 0 || pq->size == 1){
         return;

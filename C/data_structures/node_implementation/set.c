@@ -88,6 +88,9 @@ int add(Set* s, int value){
              struct Node* prev = NULL;
              while(head!=NULL){
                  int newIndex = head->val % s->bucket_count;
+                 if(newIndex<0){
+                     newIndex *= -1;
+                 }
                  if(newIndex == i){
                      prev = head;
                      head = head->next;
@@ -107,6 +110,9 @@ int add(Set* s, int value){
          }
      }
      int index = value % s->bucket_count;
+     if(index<0){
+         index *= -1;
+     }
      if(s->buckets[index] == NULL){
          struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
          newNode->val = value;
@@ -143,6 +149,9 @@ int add(Set* s, int value){
 */
 int setContains(Set* s, int value){
     int index = value % s->bucket_count;
+    if(index<0){
+        index *= -1;
+    }
     struct Node* head = s->buckets[index];
     while(head!=NULL){
         if(head->val == value){
@@ -161,6 +170,9 @@ int setContains(Set* s, int value){
 */
 int setRemove(Set* s, int value){
     int index = value % s->bucket_count;
+    if(index<0){
+        index *= -1;
+    }
     struct Node* head = s->buckets[index];
     struct Node* prev = NULL;
     while(head != NULL){
@@ -218,10 +230,7 @@ int size(Set* s){
 int main() {
     Set s1;
     initSet(&s1);
-    for(int i = 0;i<15;i++){
-        add(&s1,i);
-    }
-    for(int i = 0;i<15;i++){
+    for(int i = -4;i<13;i++){
         add(&s1,i);
     }
     printSet_Testing(&s1);

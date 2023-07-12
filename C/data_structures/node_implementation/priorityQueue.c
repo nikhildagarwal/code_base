@@ -117,6 +117,7 @@ void add(PriorityQueue* pq, int value){
 /**
  * method to return the size of the PriorityQueue
  * @param pq : Pointer to PriorityQueue variable
+ * @return number of elements in the set
 */
 int size(PriorityQueue* pq){
     return pq->size;
@@ -125,6 +126,7 @@ int size(PriorityQueue* pq){
 /**
  * method to return the top value of the priorityQueue
  * @param pq : Pointer to PriorityQueue variable
+ * @return integer top value
 */
 int peek(PriorityQueue* pq){
     if(pq->size == 0){
@@ -137,6 +139,7 @@ int peek(PriorityQueue* pq){
 /**
  * method to return the top value of the priorityQueue while also removing the value from the PriorityQueue
  * @param pq : Pointer to PriorityQueue variable
+ * @return integer top element after removing it
 */
 int poll(PriorityQueue* pq){
     if(pq->size == 0){

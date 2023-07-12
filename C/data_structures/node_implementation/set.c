@@ -136,6 +136,10 @@ void printSet_Testing(Set* s){
     printf("\n");
 }
 
+int size(Set* s){
+    return s->size;
+}
+
 int main() {
     Set s1;
     initSet(&s1);

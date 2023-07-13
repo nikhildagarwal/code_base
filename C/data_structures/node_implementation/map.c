@@ -134,6 +134,36 @@ int size(Map* m){
     return m->size;
 }
 
+int removeKey(Map* m, int key){
+    int index = key % m->bucket_count;
+    if(index < 0){
+        index *= -1;
+    }
+    struct Node* head = m->buckets[index];
+    struct Node* prev = NULL;
+    while(head!=NULL){
+        if(head->key == key){
+            struct Node* toFree = head;
+            if(prev == NULL){
+                head = head->next;
+                m->buckets[index] = head;
+            }else{
+                prev->next = head->next;
+                head = head->next;
+            }
+            m->size--;
+            double noe = (double) m->size;
+            double nob = (double) m->bucket_count;
+            m->load = noe / nob;
+            free(toFree);
+            return 1;
+        }
+        prev = head;
+        head = head->next;
+    }
+    return 0;
+}
+
 int main() {
     Map m1;
     initMap(&m1);
@@ -147,6 +177,7 @@ int main() {
     put(&m1,27,63);
     put(&m1,14,63);
     put(&m1,30,353);
+    removeKey(&m1,3);
     printMap_Testing(&m1);
     return 0;
 }

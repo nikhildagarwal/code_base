@@ -122,12 +122,12 @@ int add(Set* s, int value){
          double nob = (double) s->bucket_count;
          s->load = noe / nob;
      }else{
-         struct Node* head = s->buckets[index];
-         while(head!=NULL){
-             if(head->val == value){
+         struct Node* curr = s->buckets[index];
+         while(curr!=NULL){
+             if(curr->val == value){
                  return 0;
              }
-             head = head->next;
+             curr = curr->next;
          }
          struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
          newNode->val = value;

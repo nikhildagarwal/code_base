@@ -22,6 +22,12 @@ struct Node{
     struct Node* next;
 };
 
+struct dNode{
+  int val;
+  struct dNode* next;
+  struct dNode* prev;
+};
+
 /**
  * Constructor for Map
 */
@@ -262,13 +268,159 @@ void printMMM_Structure(MMM_Structure* m){
     printMap_Testing(m->thisMap);
 }
 
+typedef struct{
+    int size;
+    struct dNode* left;
+    struct dNode* right;
+    struct dNode* center_left;
+    struct dNode* center_right;
+}MiddleQueue;
+
+void addMQ(MiddleQueue* mq,int val){
+    struct dNode* new_d_node = (struct dNode*)malloc(sizeof(struct dNode));
+    new_d_node->val = val;
+    if(mq->size == 0){
+        mq->center_left = new_d_node;
+        mq->center_right = new_d_node;
+        mq->right = new_d_node;
+        mq->left = new_d_node;
+    }else{
+        if(mq->size == 1){
+            if(val>mq->center_left->val){
+                mq->center_left->next = new_d_node;
+                new_d_node->prev = mq->center_left;
+                mq->center_right = new_d_node;
+                mq->right = new_d_node;
+            }else{
+                mq->center_left->prev = new_d_node;
+                new_d_node->next = mq->center_left;
+                mq->center_left = new_d_node;
+                mq->left = new_d_node;
+            }
+        }else{
+            if(mq->size == 2){
+                if(val < mq->center_left->val){
+                new_d_node->next = mq->center_left;
+                mq->center_left->prev = new_d_node;
+                mq->left = new_d_node;
+                mq->center_right = mq->center_left;
+            }else if(val > mq->center_right->val){
+                new_d_node->prev = mq->center_right;
+                mq->center_right->next = new_d_node;
+                mq->right = new_d_node;
+                mq->center_left = mq->center_right;
+            }else{
+                new_d_node->next = mq->center_left->next;
+                mq->center_left->next = new_d_node;
+                new_d_node->prev = mq->center_right->prev;
+                mq->center_right->prev = new_d_node;
+                mq->center_right = new_d_node;
+                mq->center_left = new_d_node;
+            }
+            }else{
+                if(mq->size % 2 == 0){
+                    
+                }else{
+                    if(val < mq->left->val){
+                        /*Section 0*/
+                        new_d_node->next = mq->left;
+                        mq->left->prev = new_d_node;
+                        mq->left = new_d_node;
+                        mq->center_left = mq->center_left->prev;
+                    }else if(val >= mq->right->val){
+                        /*Section 3*/
+                        mq->right->next = new_d_node;
+                        new_d_node->prev = mq->right;
+                        mq->right = new_d_node;
+                        mq->center_right = mq->center_right->next;
+                    }else if(val>=mq->left->val && val<mq->center_left->val){
+                        /*Section 1*/
+                        struct dNode* start = mq->left;
+                        while(start != mq->center_left){
+                            struct dNode* l = start;
+                            struct dNode* r = start->next;
+                            if(val>=l->val && val<=r->val){
+                                new_d_node->next = l->next;
+                                l->next = new_d_node;
+                                new_d_node->prev = r->prev;
+                                r->prev = new_d_node;
+                                start = mq->center_left->prev;
+                            }
+                            start = start->next;
+                        }
+                        mq->center_left = mq->center_left->prev;
+                    }else{
+                        /*Section 2*/
+                        struct dNode* start = mq->center_left;
+                        while(start != mq->right){
+                            struct dNode* l = start;
+                            struct dNode* r = start->next;
+                            if(val>=l->val && val<=r->val){
+                                new_d_node->next = l->next;
+                                l->next = new_d_node;
+                                new_d_node->prev = r->prev;
+                                r->prev = new_d_node;
+                                start = mq->right->prev;
+                            }
+                            start = start->next;
+                        }
+                        mq->center_right = mq->center_right->next;
+                    }
+                }
+            }
+        }
+    }
+    mq->size++;
+}
+
+void printMQFromLeft(MiddleQueue* mq){
+    struct dNode* head = mq->left;
+    while(head!=NULL){
+        if(head == mq->center_left && head == mq->center_right){
+            printf("(%d) --> ",head->val);
+        }else if(head == mq->center_left){
+            printf("{%d{ --> ",head->val);
+        }else if(head == mq->center_right){
+            printf("}%d} --> ",head->val);
+        }else{
+            printf("%d --> ",head->val);
+        }
+        head = head->next;
+    }
+    printf("null\n");
+}
+
+void printMQFromRight(MiddleQueue* mq){
+    struct dNode* end = mq->right;
+    while(end!=NULL){
+        if(end == mq->center_left && end == mq->center_right){
+            printf("(%d) --> ",end->val);
+        }else if(end == mq->center_left){
+            printf("{%d{ --> ",end->val);
+        }else if(end == mq->center_right){
+            printf("}%d} --> ",end->val);
+        }else{
+            printf("%d --> ",end->val);
+        }
+        end = end->prev;
+    }
+    printf("null\n");
+}
+
 int main() {
-    srand(time(NULL));
+    /*srand(time(NULL));
     MMM_Structure m;
     initStructure(&m);
-    for(int i = 0;i<76585;i++){
-        add(&m,rand() % 100000);
+    for(int i = 0;i<765;i++){
+        add(&m,rand() % 100);
     }
-    printMMM_Structure(&m);
+    printMMM_Structure(&m);*/
+    MiddleQueue mq;
+    addMQ(&mq,6);
+    addMQ(&mq,3);
+    addMQ(&mq,9);
+    addMQ(&mq,8);
+    printMQFromLeft(&mq);
+    printMQFromRight(&mq);
     return 0;
 }

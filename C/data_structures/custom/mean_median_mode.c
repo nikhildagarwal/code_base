@@ -179,8 +179,86 @@ void addMQ(MiddleQueue* mq,int val){
     mq->size++;
 }
 
+void removeMQ(MiddleQueue* mq, int val){
+    struct dNode* toFree;
+    struct dNode* first = mq->left;
+    while(first!=NULL){
+        if(first->val == val){
+            toFree = first;
+            first = NULL;
+        }
+        if(first != NULL){
+            first = first->next;
+        }
+    }
+    if(mq->size>2){
+        if(mq->size % 2 == 0){
+            /**
+             * Must Complete
+             */
+        }else{
+            if(toFree == mq->center_left){
+                mq->center_left = mq->center_left->prev;
+                mq->center_right = mq->center_right->next;
+                mq->center_left->next = mq->center_right;
+                mq->center_right->prev = mq->center_left;
+                toFree->next = NULL;
+                toFree->prev = NULL;
+            }else if(toFree == mq->left){
+                mq->left = mq->left->next;
+                mq->left->prev = NULL;
+                mq->center_right = mq->center_right->next;
+                toFree->next = NULL;
+                toFree->prev = NULL;
+            }else if(toFree == mq->right){
+                mq->right = mq->right->prev;
+                mq->right->next = NULL;
+                mq->center_left = mq->center_left->prev;
+                toFree->next = NULL;
+                toFree->prev = NULL;
+            }else if(val < mq->center_left){
+                struct dNode* l = toFree->prev;
+                struct dNode* r = toFree->right;
+                l->next = r;
+                r->prev = l;
+                mq->center_right = mq->center_right->next;
+                toFree->next = NULL;
+                toFree->prev = NULL;
+            }else if(val > mq->center_right){
+                struct dNode* l = toFree->prev;
+                struct dNode* r = toFree->right;
+                l->next = r;
+                r->prev = l;
+                mq->center_left = mq->center_left->prev;
+                toFree->next = NULL;
+                toFree->prev = NULL;
+            }
+        }
+    }else if(mq->size == 2){
+        mq->left->next = NULL;
+        mq->right->prev = NULL;
+        if(toFree == mq->left){
+            mq->left = mq->right;
+            mq->center_left = mq->right;
+        }else{
+            mq->right = mq->left;
+            mq->center_right = mq->left;
+        }
+        toFree->next = NULL;
+        toFree->prev = NULL;
+    }else if(mq->size == 1){
+        mq->left = NULL;
+        mq->right = NULL;
+        mq->center_right = NULL;
+        mq->center_left = NULL;
+    }
+    mq->size--;
+    free(toFree);
+}
+
 void printMQ(MiddleQueue* mq){
     printf("----- MQ START -----\n");
+    printf("Middle Queue Size: %d\n",mq->size);
     struct dNode* head = mq->left;
     while(head!=NULL){
         if(head == mq->center_left && head == mq->center_right){
@@ -469,6 +547,28 @@ void MMMadd(MMM_Structure* m, int val){
         m->mode = val;
     }
     addMQ(m->thisMQ,val);
+    m->median = getMedianMQ(m->thisMQ);
+}
+
+void MMMremove(MMM_Structure* m, int val){
+    if(m->size <= 0 || containsKey(m->thisMap,val) == 0){
+        return;
+    }
+    m->size--;
+    m->total -= val;
+    double t = (double) m->total;
+    double s = (double) m->size;
+    m->average = t / s;
+    int occ = getValueFromKey(m->thisMap,val);
+    if(occ == 1){
+        removeKey(m->thisMap,val);
+    }else{
+        put(m->thisMap,val,occ-1);
+    }
+    if(val == m->mode){
+        m->mode = getKeyOfMaxValue(m->thisMap);
+    }
+    removeMQ(m->thisMQ,val);
     m->median = getMedianMQ(m->thisMQ);
 }
 

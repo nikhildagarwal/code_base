@@ -44,6 +44,17 @@ void initMQ(MiddleQueue* mq){
     mq->center_right = NULL;
 }
 
+void endMQ(MiddleQueue* mq){
+    struct dNode* head = mq->left;
+    while(head!=NULL){
+        struct dNode* toFree = head;
+        head = head->next;
+        head->prev = NULL;
+        toFree->next = NULL;
+        free(toFree);
+    }
+}
+
 /**
  * Add value to Doubly linked list
  * update positions of end referenes and center refs
@@ -605,6 +616,13 @@ void initMMMStructure(MMM_Structure* m){
     initMQ(m->thisMQ);
 }
 
+void endMMMStructure(MMM_Structure* m){
+    endMap(m->thisMap);
+    free(m->thisMap);
+    endMQ(m->thisMQ);
+    free(m->thisMQ);
+}
+
 /**
  * add value to MMM structure
  * @param m : pointer to MMM_Structure var
@@ -657,7 +675,7 @@ void MMMremove(MMM_Structure* m, int val){
  * Prints MMM structure to command line for better visualization of structure
  * @param m : pointer to MMM_Structure var
 */
-void printMMM_Structure(MMM_Structure* m){
+void printMMMStructure(MMM_Structure* m){
     printf("mean: %f | median: %f | mode: %d\n",m->average,m->median,m->mode);
     printf("MMM_Structure size: %d\n",m->size);
     printMap_Testing(m->thisMap);
@@ -701,6 +719,7 @@ int main() {
     MMMadd(&mmm,2);
     MMMadd(&mmm,23);
     MMMremove(&mmm,5);
-    printMMM_Structure(&mmm);
+    printMMMStructure(&mmm);
+    endMMMStructure(&mmm);
     return 0;
 }

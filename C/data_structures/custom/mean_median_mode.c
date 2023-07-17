@@ -250,6 +250,7 @@ void endMap(Map* m){
         }
     }
     free(m->buckets);
+    free(m);
 }
 
 /**
@@ -360,6 +361,22 @@ int getValueFromKey(Map* m, int key){
     return 0;
 }
 
+int getKeyOfMaxValue(Map* m){
+    int key = 0;
+    int val = 0;
+    for(int i = 0;i<m->bucket_count;i++){
+        struct Node* head = m->buckets[i];
+        while(head!=NULL){
+            if(head->val > val){
+                val = head->val;
+                key = head->key;
+            }
+            head = head->next;
+        }
+    }
+    return key;
+}
+
 /**
  * Removes key, value pair from map
  * if the key is found, the pair is removed, else, this method returns prematurely without terminating due to error.
@@ -427,7 +444,7 @@ typedef struct{
     MiddleQueue* thisMQ;
 }MMM_Structure;
 
-void initStructure(MMM_Structure* m){
+void initMMMStructure(MMM_Structure* m){
     m->size = INIT_SIZE;
     m->average = INIT_AVERAGE;
     m->median = INIT_MEDIAN;
@@ -439,7 +456,7 @@ void initStructure(MMM_Structure* m){
     initMQ(m->thisMQ);
 }
 
-void add(MMM_Structure* m, int val){
+void MMMadd(MMM_Structure* m, int val){
     m->size++;
     m->total += val;
     double t = (double) m->total;
@@ -462,25 +479,26 @@ void printMMM_Structure(MMM_Structure* m){
     printMQ(m->thisMQ);
 }
 
-double structureMean(MMM_Structure* mmm){
-    return mmm->average;
+double MMM_mean(MMM_Structure* m){
+    return m->average;
 }
 
-double structureMedian(MMM_Structure* mmm){
-    return mmm->median;
+double MMM_median(MMM_Structure* m){
+    return m->median;
 }
 
-int structureMode(MMM_Structure* mmm){
-    return mmm->mode;
+int MMM_mode(MMM_Structure* m){
+    return m->mode;
 }
 
 int main() {
     srand(time(NULL));
     MMM_Structure mmm;
-    initStructure(&mmm);
+    initMMMStructure(&mmm);
     for(int i = 0;i<67;i++){
-        add(&mmm,rand()%85);
+        MMMadd(&mmm,rand()%85);
     }
     printMMM_Structure(&mmm);
+    
     return 0;
 }

@@ -12,12 +12,18 @@ int INIT_BUCKET_COUNT = 16;
 double LOAD_FACTOR = 0.75;
 int INIT_TOTAL = 0;
 
+/**
+ * Constructor for double node
+*/
 struct dNode{
   int val;
   struct dNode* next;
   struct dNode* prev;
 };
 
+/**
+ * Constructor for Double Linked List with center node references
+*/
 typedef struct{
     int size;
     struct dNode* left;
@@ -26,6 +32,10 @@ typedef struct{
     struct dNode* center_right;
 }MiddleQueue;
 
+/**
+ * Initialize doubly linked list
+ * @param mq : pointer to MiddleQueue var
+*/
 void initMQ(MiddleQueue* mq){
     mq->size = INIT_SIZE;
     mq->left = NULL;
@@ -34,6 +44,12 @@ void initMQ(MiddleQueue* mq){
     mq->center_right = NULL;
 }
 
+/**
+ * Add value to Doubly linked list
+ * update positions of end referenes and center refs
+ * @param mq : Pointer to MiddleQueue var
+ * @param val : integer value to add
+*/
 void addMQ(MiddleQueue* mq,int val){
     struct dNode* new_d_node = (struct dNode*)malloc(sizeof(struct dNode));
     new_d_node->val = val;
@@ -179,6 +195,12 @@ void addMQ(MiddleQueue* mq,int val){
     mq->size++;
 }
 
+/**
+ * remove a value from Double linked list
+ * update positions of end referenes and center refs
+ * @param mq : Pointer to MiddleQueue var
+ * @param val : integer value to add
+*/
 void removeMQ(MiddleQueue* mq, int val){
     struct dNode* toFree;
     struct dNode* first = mq->left;
@@ -256,6 +278,10 @@ void removeMQ(MiddleQueue* mq, int val){
     free(toFree);
 }
 
+/**
+ * Visual representation of Doubly linked list to command line
+ * @param mq : pointer to MiddleQueue var
+*/
 void printMQ(MiddleQueue* mq){
     printf("----- MQ START -----\n");
     printf("Middle Queue Size: %d\n",mq->size);
@@ -276,6 +302,11 @@ void printMQ(MiddleQueue* mq){
     printf("----- MQ END -----\n");
 }
 
+/**
+ * getter method for median of values in doubly linked list
+ * @param mq : pointer to MiddleQueue var
+ * @return double median
+*/
 double getMedianMQ(MiddleQueue* mq){
     double first = (double) mq->center_left->val;
     double second = (double) mq->center_right->val;
@@ -439,6 +470,10 @@ int getValueFromKey(Map* m, int key){
     return 0;
 }
 
+/**
+ * method to get corresponding key of max value in map
+ * @param m : pointer to Map
+*/
 int getKeyOfMaxValue(Map* m){
     int key = 0;
     int val = 0;
@@ -512,6 +547,9 @@ void printMap_Testing(Map* m){
     printf("----- MAP END -----\n");
 }
 
+/**
+ * Constructor for MMM_Structure (Mean, Median, Mode)
+*/
 typedef struct{
     int size;
     double average;
@@ -522,6 +560,10 @@ typedef struct{
     MiddleQueue* thisMQ;
 }MMM_Structure;
 
+/**
+ * Initialze MMM structure
+ * @param m : pointer to MMM_Structure var
+*/
 void initMMMStructure(MMM_Structure* m){
     m->size = INIT_SIZE;
     m->average = INIT_AVERAGE;
@@ -534,6 +576,11 @@ void initMMMStructure(MMM_Structure* m){
     initMQ(m->thisMQ);
 }
 
+/**
+ * add value to MMM structure
+ * @param m : pointer to MMM_Structure var
+ * @param val : integer val to add
+*/
 void MMMadd(MMM_Structure* m, int val){
     m->size++;
     m->total += val;
@@ -550,6 +597,11 @@ void MMMadd(MMM_Structure* m, int val){
     m->median = getMedianMQ(m->thisMQ);
 }
 
+/**
+ * remove value from MMM structure
+ * @param m : pointer to MMM_Structure var
+ * @param val : integer val to remove
+*/
 void MMMremove(MMM_Structure* m, int val){
     if(m->size <= 0 || containsKey(m->thisMap,val) == 0){
         return;
@@ -572,6 +624,10 @@ void MMMremove(MMM_Structure* m, int val){
     m->median = getMedianMQ(m->thisMQ);
 }
 
+/**
+ * Prints MMM structure to command line for better visualization of structure
+ * @param m : pointer to MMM_Structure var
+*/
 void printMMM_Structure(MMM_Structure* m){
     printf("mean: %f | median: %f | mode: %d\n",m->average,m->median,m->mode);
     printf("MMM_Structure size: %d\n",m->size);
@@ -579,14 +635,30 @@ void printMMM_Structure(MMM_Structure* m){
     printMQ(m->thisMQ);
 }
 
+/**
+ * getter method for mean (average) of MMM structure values
+ * @param m : pointer to MMM_Structure var
+ * @return double average
+*/
 double MMM_mean(MMM_Structure* m){
     return m->average;
 }
 
+/**
+ * getter method for median (middle value) of MMM structure values
+ * @param m : pointer to MMM_Structure var
+ * @return double median
+*/
 double MMM_median(MMM_Structure* m){
     return m->median;
 }
 
+
+/**
+ * getter method for mode (most frequent value) in MMM structure
+ * @param m : pointer to MMM_Structure var
+ * @return int mode
+*/
 int MMM_mode(MMM_Structure* m){
     return m->mode;
 }

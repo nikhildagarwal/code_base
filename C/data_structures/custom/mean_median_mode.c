@@ -44,6 +44,10 @@ void initMQ(MiddleQueue* mq){
     mq->center_right = NULL;
 }
 
+/**
+ * Frees all allocated Memory in Doubly linked list (MiddleQueue)
+ * @param mq : pointer to MiddleQueue var
+*/
 void endMQ(MiddleQueue* mq){
     struct dNode* head = mq->left;
     while(head!=NULL){
@@ -616,6 +620,10 @@ void initMMMStructure(MMM_Structure* m){
     initMQ(m->thisMQ);
 }
 
+/**
+ * End MMMStructure at end of program to free all allocated memory
+ * @param m : pointer to MMM_Structure var
+*/
 void endMMMStructure(MMM_Structure* m){
     endMap(m->thisMap);
     free(m->thisMap);

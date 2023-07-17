@@ -243,7 +243,7 @@ public class Queue<T> {
     }
 
     /**
-     * helper method to grow the size of the queue array once the end pointer is
+     * Helper method to grow the size of the queue array once the end pointer is
      * equal to the length of our array.
      */
     private void grow() {
